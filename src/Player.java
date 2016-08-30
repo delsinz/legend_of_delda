@@ -11,7 +11,8 @@ public class Player
 {
     private static final double PLAYER_START_X = 756;
     private static final double PLAYER_START_Y = 684;
-    private Image rightImg = new Image("assets/units/bloodborn.png");
+    private static final float SCALE = 0.07f;
+    private Image rightImg = new Image("assets/units/link-8-bit.png").getScaledCopy(SCALE);
     private Image leftImg = rightImg.getFlippedCopy(true, false);
     private Image model;
     private double x, y; // Player position relative to the map, in pixels.
