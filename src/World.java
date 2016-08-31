@@ -14,7 +14,7 @@ import java.lang.Math;
  * Represents the entire game world.
  * (Designed to be instantiated just once for the whole game).
  */
-public class World {
+public final class World {
     private TiledMap map;
     private Player player = new Player();
 

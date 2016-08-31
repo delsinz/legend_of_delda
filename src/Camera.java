@@ -7,7 +7,7 @@ import org.newdawn.slick.SlickException;
 
 /** Represents the camera that controls our viewpoint.
  */
-public class Camera
+public final class Camera
 {
     /* The camera's position (top left of the screen) relative to the map, in pixels. */
     private double x, y;

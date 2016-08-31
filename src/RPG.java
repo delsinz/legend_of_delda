@@ -13,7 +13,7 @@ import org.newdawn.slick.SlickException;
 /** Main class for the Role-Playing Game engine.
  * Handles initialisation, input and rendering.
  */
-public class RPG extends BasicGame
+public final class RPG extends BasicGame
 {
     private World world;
 

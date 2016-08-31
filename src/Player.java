@@ -7,7 +7,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Graphics;
 
-public class Player
+public final class Player
 {
     private static final double PLAYER_START_X = 756;
     private static final double PLAYER_START_Y = 684;
