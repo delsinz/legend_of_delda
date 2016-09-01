@@ -13,13 +13,10 @@ public abstract class Character {
     double x, y;
     double speed;
 
-    public double getX() {
-        return this.x;
-    }
+    public abstract double getX();
+    public abstract double getY();
+    public abstract Image getModel();
 
-    public double getY() {
-        return this.y;
-    }
 
 
 }

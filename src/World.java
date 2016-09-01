@@ -104,7 +104,7 @@ public final class World {
     }
 
     /**
-     *  Get friction at (playerX, y)
+     * Get friction at (playerX, y)
      * i.e. whether (playerX, y) blocks player
      */
     public int yFrictionAt(double y)
