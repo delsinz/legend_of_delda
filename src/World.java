@@ -132,6 +132,7 @@ public final class World {
     }
 }
 /*
+* TODO: Character abstract class
 * TODO: add Character class abstract
 * TODO: Volume for character?
 * TODO: pathfinding

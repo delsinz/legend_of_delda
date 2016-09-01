@@ -12,9 +12,8 @@ public final class Player
     private static final double PLAYER_START_X = 756;
     private static final double PLAYER_START_Y = 684;
     private static final float SCALE = 0.07f;
-    private Image rightImg = new Image("assets/units/link-8-bit.png").getScaledCopy(SCALE);
-    private Image leftImg = rightImg.getFlippedCopy(true, false);
-    private Image model;
+
+    private Image model, rightImg, leftImg;
     private double x, y; // Player position relative to the map, in pixels.
     private double speed;
     private Camera camera;
@@ -22,6 +21,8 @@ public final class Player
     public Player()
     throws SlickException
     {
+        this.rightImg = new Image("assets/units/link-8-bit.png").getScaledCopy(SCALE);
+        this.leftImg = rightImg.getFlippedCopy(true, false);
         this.model = rightImg;
         this.x = PLAYER_START_X;
         this.y = PLAYER_START_Y;
