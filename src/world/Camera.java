@@ -6,6 +6,7 @@
 package world;
 
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.tiled.TiledMap;
 
 /** Represents the camera that controls our viewpoint.
  */
@@ -15,6 +16,8 @@ public final class Camera
     private double x, y;
     /* Width & height of the screen, in pixels */
     private double width, height;
+    /* Width & height of map, in pixels */
+    private double mapWidth, mapHeight;
 
     protected Camera(double playerX, double playerY, double width, double height)
     throws SlickException
@@ -52,6 +55,14 @@ public final class Camera
         return this.height;
     }
 
+    protected void setMapWidth(double mapWidth){
+        this.mapWidth = mapWidth;
+    }
+
+    protected void setMapHeight(double mapHeight){
+        this.mapHeight = mapHeight;
+    }
+
     protected void update(double playerX, double playerY, int delta)
     throws SlickException
     {
@@ -61,8 +72,11 @@ public final class Camera
     private void follow(double targetX, double targetY, int delta)
     throws SlickException
     {
-        this.x = targetX - this.width/2;
-        this.y = targetY - this.height/2;
+        if(targetX >= this.width/2 && targetX <= this.mapWidth - width/2) { // To prevent camera from moving out of map.
+            this.x = targetX - this.width/2;
+        }
+        if(targetY >= this.height/2 && targetY <= this.mapHeight - height/2) {
+            this.y = targetY - this.height/2;
+        }
     }
-    
 }

@@ -28,6 +28,8 @@ public final class World {
     throws SlickException
     {
         map = new TiledMap("assets/map.tmx", "assets/");
+        this.camera.setMapWidth(map.getWidth() * map.getTileWidth());
+        this.camera.setMapHeight(map.getHeight() * map.getTileHeight());
     }
 
     /**
