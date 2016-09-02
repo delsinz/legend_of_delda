@@ -1,7 +1,9 @@
 /* SWEN20003 Object Oriented Software Development
- * RPG Game Engine
+ * game.RPG Game Engine
  * Author: <Your name> <Your login>
  */
+
+package world;
 
 import org.newdawn.slick.SlickException;
 
@@ -14,7 +16,7 @@ public final class Camera
     /* Width & height of the screen, in pixels */
     private double width, height;
 
-    public Camera(double playerX, double playerY, double width, double height)
+    protected Camera(double playerX, double playerY, double width, double height)
     throws SlickException
     {
         this.x = playerX - width/2;
@@ -23,6 +25,9 @@ public final class Camera
         this.height = height;
     }
 
+
+
+    /* Made public to interact with World class to render map */
     public double getX()
     throws SlickException
     {
@@ -35,19 +40,19 @@ public final class Camera
         return this.y;
     }
 
-    public double getWidth()
+    protected double getWidth()
     throws SlickException
     {
         return this.width;
     }
 
-    public double getHeight()
+    protected double getHeight()
     throws SlickException
     {
         return this.height;
     }
 
-    public void update(double playerX, double playerY, int delta)
+    protected void update(double playerX, double playerY, int delta)
     throws SlickException
     {
         this.follow(playerX, playerY, delta);

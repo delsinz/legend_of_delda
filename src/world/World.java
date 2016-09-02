@@ -1,15 +1,17 @@
 /* 433-294 Object Oriented Software Development
- * RPG Game Engine
+ * game.RPG Game Engine
  * Author: <Your name> <Your login>
  */
 
-import org.newdawn.slick.Color;
+package world;
+
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
-
 import java.lang.Math;
 
+import characters.Player;
+import game.RPG;
 /**
  * Represents the entire game world.
  * (Designed to be instantiated just once for the whole game).
@@ -17,9 +19,10 @@ import java.lang.Math;
 public final class World {
     private TiledMap map;
     private Player player = new Player();
+    private Camera camera = new Camera(player.getX(), player.getY(), RPG.SCREEN_WIDTH, RPG.SCREEN_HEIGHT);
 
     /**
-     * Create a new World object.
+     * Create a new world.World object.
      */
     public World()
     throws SlickException
@@ -34,6 +37,7 @@ public final class World {
     throws SlickException
     {
         player.update(dirX, dirY, this, delta);
+        camera.update(player.getX(), player.getY(), delta);
     }
 
     /**
@@ -45,25 +49,22 @@ public final class World {
     throws SlickException
     {
         renderMap(g);
-        player.render(g);
+        player.render(g, camera);
         displayDebugInfo(g);
     }
 
     private void renderMap(Graphics g)
     throws SlickException
     {
-        double camX = player.getCamera().getX();
-        double camY = player.getCamera().getY();
-
         /* Starting position for rendering, relative to map, in tiles */
-        int tileX = (int) Math.floor((camX + 1) / map.getTileWidth());
-        int tileY = (int) Math.floor((camY + 1) / map.getTileHeight());
+        int tileX = (int) Math.floor((camera.getX() + 1) / map.getTileWidth());
+        int tileY = (int) Math.floor((camera.getY() + 1) / map.getTileHeight());
         /* Starting position for rendering, relative to screen, in pixels */
-        double pixelX = camX - toTileX(camX) * map.getTileWidth();
-        double pixelY = camY - toTileY(camY) * map.getTileHeight();
+        double pixelX = camera.getX() - toTileX(camera.getX()) * map.getTileWidth();
+        double pixelY = camera.getY() - toTileY(camera.getY()) * map.getTileHeight();
         /* Size of the rendered section, in tiles */
-        int renderWidth = (int) Math.floor(player.getCamera().getWidth() / map.getTileWidth()) + 2;
-        int renderHeight = (int) Math.floor(player.getCamera().getHeight() / map.getTileHeight()) + 2;
+        int renderWidth = (int) Math.floor(camera.getWidth() / map.getTileWidth()) + 2;
+        int renderHeight = (int) Math.floor(camera.getHeight() / map.getTileHeight()) + 2;
         map.render((int) -pixelX, (int) -pixelY, tileX, tileY, renderWidth, renderHeight);
     }
 
@@ -132,9 +133,6 @@ public final class World {
     }
 }
 /*
-* TODO: Character abstract class
-* TODO: add Character class abstract
-* TODO: Volume for character?
 * TODO: pathfinding
 * TODO: point and click navigation
 * */

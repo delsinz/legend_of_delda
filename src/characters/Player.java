@@ -3,74 +3,71 @@
  * Created on 08/26/2016.
  */
 
+package characters;
+
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Graphics;
 
-public final class Player
+import world.*;
+
+public final class Player extends Character
 {
     private static final double PLAYER_START_X = 756;
     private static final double PLAYER_START_Y = 684;
     private static final float SCALE = 0.07f;
 
-    private Image model, rightImg, leftImg;
-    private double x, y; // Player position relative to the map, in pixels.
-    private double speed;
-    private Camera camera;
-
     public Player()
     throws SlickException
     {
+        super();
         this.rightImg = new Image("assets/units/link-8-bit.png").getScaledCopy(SCALE);
         this.leftImg = rightImg.getFlippedCopy(true, false);
         this.model = rightImg;
         this.x = PLAYER_START_X;
         this.y = PLAYER_START_Y;
         this.speed = 1;
-        camera = new Camera(this.x, this.y, RPG.SCREEN_WIDTH, RPG.SCREEN_HEIGHT);
     }
 
+    @Override
     public double getX()
     throws SlickException
     {
-        return x;
+        return this.x;
     }
 
+    @Override
     public double getY()
     throws SlickException
     {
-        return y;
+        return this.y;
     }
 
+    @Override
     public Image getModel()
     throws SlickException
     {
-        return model;
+        return this.model;
     }
 
-    public Camera getCamera()
-    throws SlickException
-    {
-        return this.camera;
-    }
-
+    @Override
     public void update(int dirX, int dirY, World world, int delta)
     throws SlickException
     {
         /* Update player's (x, y) pos */
         this.move(nextX(dirX, world), nextY(dirY, world), delta);
-        /* Camera follows player */
-        this.camera.update(this.x, this.y, delta);
     }
 
-    public void render(Graphics g)
+    @Override
+    public void render(Graphics g, Camera camera)
     throws SlickException
     {
         this.model.drawCentered((float)(x - camera.getX()), (float)(y - camera.getY()));
     }
 
     /** Move player by displacement (displaceX, displaceY) */
-    private void move(double displaceX, double displaceY, int delta)
+    @Override
+    protected void move(double displaceX, double displaceY, int delta)
     throws SlickException
     {
         /* Update facing direction */
@@ -86,7 +83,8 @@ public final class Player
 
     /** Get friction in player's x direction
      * i.e. check whether player can move in x direction */
-    private int frictionX(int dirX, World world)
+    @Override
+    protected int frictionX(int dirX, World world)
     throws SlickException {
         double velocityX = dirX * this.speed;
         double playerNextX = this.x + velocityX;
@@ -95,7 +93,8 @@ public final class Player
 
     /** Get friction in player's y direction
      * i.e. check whether player can move in y direction */
-    private int frictionY(int dirY, World world)
+    @Override
+    protected int frictionY(int dirY, World world)
     throws SlickException {
         double velocityY = dirY * this.speed;
         double playerNextY = this.y + velocityY;
@@ -103,13 +102,15 @@ public final class Player
     }
 
     /** Computes player's displacement in x direction */
-    private double nextX(int dirX, World world)
+    @Override
+    protected double nextX(int dirX, World world)
     throws SlickException {
         return (Math.abs(dirX) - frictionX(dirX, world)) * dirX * speed;
     }
 
     /** Computes player's displacement in y direction */
-    private double nextY(int dirY, World world)
+    @Override
+    protected double nextY(int dirY, World world)
     throws SlickException {
         return (Math.abs(dirY) - frictionY(dirY, world)) * dirY * speed;
     }

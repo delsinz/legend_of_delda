@@ -1,7 +1,9 @@
 /* 433-294 Object Oriented Software Development
- * RPG Game Engine
+ * game.RPG Game Engine
  * Author: Matt Giuca <mgiuca>
  */
+
+package game;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
@@ -9,6 +11,8 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+
+import world.World;
 
 /** Main class for the Role-Playing Game engine.
  * Handles initialisation, input and rendering.
@@ -22,10 +26,10 @@ public final class RPG extends BasicGame
     /** Screen height, in pixels. */
     public static final int SCREEN_HEIGHT = 600;
 
-    /** Create a new RPG object. */
+    /** Create a new game.RPG object. */
     public RPG()
     {
-        super("RPG Game Engine");
+        super("game.RPG Game Engine");
     }
 
     /** Initialise the game state.
@@ -63,7 +67,7 @@ public final class RPG extends BasicGame
         if(input.isKeyPressed(Input.KEY_ESCAPE))
             gc.exit();
 
-        // Let World.update decide what to do with this data.
+        // Let world.World.update decide what to do with this data.
         world.update(dir_x, dir_y, delta);
     }
 
